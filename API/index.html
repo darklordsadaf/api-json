@@ -10,29 +10,82 @@
     <h2>JavaScript Object Notation</h2>
 
     <ul id="user-container">
-
+        <input id="title" type="text">
+        <br>
+        <input id="body" type="text">
+        <br>
+        <button id="submit" type="submit">Submit</button>
     </ul>
 
     <script>
+    /** post method */
+    document.getElementById("submit").addEventListener("click", function(){
+        const title = document.getElementById("title").value;
+        const body = document.getElementById("body").value;
 
-    fetch('https://jsonplaceholder.typicode.com/users')
+        const post = {title: title, body: body}
+
+        nowPostToServer(post);
+    })
+
+        // const post = {title: 'foo',body: 'bar',userId: 1};
+    function nowPostToServer(postInfo){
+        fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        body: JSON.stringify(postInfo),
+        headers: {
+        "Content-type": "application/json; charset=UTF-8"
+        }
+    })
     .then(response => response.json())
-    .then(json => displayUser(json))
+    .then(data => console.log(data))
+
+    }
+
+    
+
+    
+    
+    /** Http request status || error code */
+    // fetch('https://jsonplaceholder.typicode.com/users')
+    
+    // fetch('https://jsonplaceholder.typicode.com/peoples')
+    // .then(response => response.json())
+    // .then(json => displayUser(json))
+    // .catch( error => console.log(error))
         
     
-    function displayUser(users){
-        const userNames = users.map(user => user.username);
-        const ul = document.getElementById("user-container");
-        for(let i = 0; i < userNames.length; i++){
-            const username = userNames[i];
-            const li = document.createElement("li");
-            li.innerText = username;
-            ul.appendChild(li);
-        }
-    }
+    // function displayUser(users){
+    //     const userNames = users.map(user => user.username);
+    //     const ul = document.getElementById("user-container");
+    //     for(let i = 0; i < userNames.length; i++){
+    //         const username = userNames[i];
+    //         const li = document.createElement("li");
+    //         li.innerText = username;
+    //         ul.appendChild(li);
+    //     }
+    // }
+    
+
+    /** how to load json data  */
+    // fetch('https://jsonplaceholder.typicode.com/users')
+    // .then(response => response.json())
+    // .then(json => displayUser(json))
+        
+    
+    // function displayUser(users){
+    //     const userNames = users.map(user => user.username);
+    //     const ul = document.getElementById("user-container");
+    //     for(let i = 0; i < userNames.length; i++){
+    //         const username = userNames[i];
+    //         const li = document.createElement("li");
+    //         li.innerText = username;
+    //         ul.appendChild(li);
+    //     }
+    // }
     
     
-    
+    /** json stringify || json parse */
         // const user = {
         //     id: 247, 
         //     name: "Ron",
